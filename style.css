@@ -14,4 +14,9 @@ h3 {
 .btn {
     background-color: blueviolet;
     color: white;
+    height: 38px;
+}
+
+.card {
+    margin: 10px;
 }
