@@ -151,10 +151,10 @@ $.ajax({
 
 
 })
-localStorage.setItem("cityInput", JSON.stringify(cityInput));
-
- var savedCities = JSON.parse(localStorage.getItem("cityInput"));
+var savedCities = localStorage.setItem("cityInput", JSON.stringify(cityInput));
 Arr_Cities.push(savedCities);
+JSON.parse(localStorage.getItem("cityInput"));
+
 
 for (i = 0; i < Arr_Cities.length; i++) { 
  $("ul").append("<li>").addClass("cityNames").text(Arr_Cities[i]);
