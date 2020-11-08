@@ -1,3 +1,6 @@
+$("#icon").hide();
+$(".5day").hide();
+
 
 $("button").on("click", function (event) {
     event.preventDefault();
@@ -17,6 +20,16 @@ $.ajax({
   }).then(function(response) {
     console.log(response);
 
+//day 1 of forecast
+$(".date1").text((response.list[4].dt_txt).split(" ", 1));
+var day1temp = $("<p>").text("Temp: " + response.list[4].main.temp + "°F");
+var day1humidity = $("<p>").text("Humidity: " + response.list[4].main.humidity + "%");
+//icon
+var iconcode = response.list[4].weather[0].icon;
+var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+$('#icon1').attr('src', iconurl);
+
+$(".day1").append(day1temp, day1humidity);
 
 })
 
@@ -43,16 +56,20 @@ $.ajax({
       cityName.append(todayDate);
   
   })
+  
+  $(".5day").show();
+
     var cardBody = $("<div>").addClass("card-body");
     var cityName = $("<h5>").addClass("card-title").text(response.name);
     var fToday = ((response.main.temp - 273.15) * 1.80 + 32).toFixed(1);
-    var tempToday = $("<p>").addClass("card-text").text("Temperature: " + fToday);
+    var tempToday = $("<p>").addClass("card-text").text("Temperature: " + fToday + "°F");
     var humidityToday = $("<p>").addClass("card-text").text("Humidity: " + response.main.humidity + "%");
     var windyToday = $("<p>").addClass("card-text").text("Wind Speed: " + ((response.wind.speed * 2.2369)).toFixed(1) + " MPH");
-
+    
     var iconcode = response.weather[0].icon;
     var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
     $('#wicon').attr('src', iconurl);
+    $("#icon").show();
     
     $(".today").addClass("card");
     cardBody.append(cityName, tempToday, humidityToday, windyToday);
