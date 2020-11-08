@@ -1,4 +1,5 @@
 $("#icon").hide();
+$(".col-md").hide();
 $(".5day").hide();
 
 
@@ -20,9 +21,11 @@ $.ajax({
   }).then(function(response) {
     console.log(response);
 
+    $(".col-md").show();
 //day 1 of forecast
 $(".date1").text((response.list[4].dt_txt).split(" ", 1));
-var day1temp = $("<p>").text("Temp: " + response.list[4].main.temp + "°F");
+var tempF1 = ((response.list[4].main.temp - 273.15) * 1.80 + 32).toFixed(2);
+var day1temp = $("<p>").text("Temp: " + tempF1 + "°F");
 var day1humidity = $("<p>").text("Humidity: " + response.list[4].main.humidity + "%");
 //icon
 var iconcode = response.list[4].weather[0].icon;
@@ -30,6 +33,18 @@ var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 $('#icon1').attr('src', iconurl);
 
 $(".day1").append(day1temp, day1humidity);
+
+//day 2 of forecast
+$(".date2").text((response.list[8].dt_txt).split(" ", 1));
+var tempF2 = ((response.list[8].main.temp - 273.15) * 1.80 + 32).toFixed(2);
+var day2temp = $("<p>").text("Temp: " + tempF2 + "°F");
+var day2humidity = $("<p>").text("Humidity: " + response.list[8].main.humidity + "%");
+//icon
+var iconcode = response.list[8].weather[0].icon;
+var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+$('#icon2').attr('src', iconurl);
+
+$(".day2").append(day2temp, day2humidity);
 
 })
 

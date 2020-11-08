@@ -21,8 +21,8 @@ h3 {
     margin: 10px;
 }
 
-.hold-em{
-border-color: white;
+.hide {
+    border-color: blueviolet;
 }
 
 .card-fill {
