@@ -21,6 +21,11 @@ h3 {
     margin: 10px;
 }
 
-.weather-icons {
-    width: 5%;
+.hold-em{
+border-color: white;
+}
+
+.card-fill {
+    background-color: blueviolet;
+    color: white;
 }
