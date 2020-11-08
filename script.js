@@ -1,7 +1,8 @@
 $("#icon").hide();
 $(".col-md").hide();
 $(".5day").hide();
-// $("aside").empty();
+var Arr_Cities = [];
+var i = 0;
 
 
 $("button").on("click", function (event) {
@@ -32,7 +33,7 @@ var day1humidity = $("<p>").text("Humidity: " + response.list[4].main.humidity +
 var iconcode = response.list[4].weather[0].icon;
 var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 $('#icon1').attr('src', iconurl);
-
+$(".day1").empty();
 $(".day1").append(day1temp, day1humidity);
 
 //day 2 of forecast
@@ -44,7 +45,7 @@ var day2humidity = $("<p>").text("Humidity: " + response.list[12].main.humidity 
 var iconcode = response.list[12].weather[0].icon;
 var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 $('#icon2').attr('src', iconurl);
-
+$(".day2").empty();
 $(".day2").append(day2temp, day2humidity);
 
 //day 3 of forecast
@@ -56,7 +57,7 @@ var day3humidity = $("<p>").text("Humidity: " + response.list[20].main.humidity 
 var iconcode = response.list[20].weather[0].icon;
 var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 $('#icon3').attr('src', iconurl);
-
+$(".day3").empty();
 $(".day3").append(day3temp, day3humidity);
 
 //day 4 of forecast
@@ -68,7 +69,7 @@ var day4humidity = $("<p>").text("Humidity: " + response.list[28].main.humidity 
 var iconcode = response.list[28].weather[0].icon;
 var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 $('#icon4').attr('src', iconurl);
-
+$(".day4").empty();
 $(".day4").append(day4temp, day4humidity);
 
 //day 5 of forecast
@@ -80,7 +81,7 @@ var day5humidity = $("<p>").text("Humidity: " + response.list[36].main.humidity 
 var iconcode = response.list[36].weather[0].icon;
 var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 $('#icon5').attr('src', iconurl);
-
+$(".day5").empty();
 $(".day5").append(day5temp, day5humidity);
 
 })
@@ -95,7 +96,7 @@ $.ajax({
     // UV Index
     var queryURLUV = "http://api.openweathermap.org/data/2.5/uvi?lat=" + response.coord.lat + "&lon=" + response.coord.lon + "&appid=" + APIKey;
 
-    $.ajax({
+   $.ajax({
       url: queryURLUV,
       method: "GET"
     }).then(function(response) {
@@ -104,7 +105,6 @@ $.ajax({
       var UVIndex = $(".UV-goes-here").addClass("card-text").text("UV Index: " + response.value);
     
       var todayDate = $("<h5>").text((response.date_iso).split("T", 1));
-
       cardBody.append(UVIndex);      
       cityName.append(todayDate);
       
@@ -117,6 +117,16 @@ $.ajax({
       }
       if (response.value >= 6 && response.value < 8){
         $(".UV-goes-here").css("background-color", "orange");
+        console.log(response.value);
+      }
+      if (response.value >= 8 && response.value < 11){
+        $(".UV-goes-here").css("background-color", "red");
+        $(".UV-goes-here").css("color", "white");
+        console.log(response.value);
+      }
+      if (response.value > 11){
+        $(".UV-goes-here").css("background-color", "purple");
+        $(".UV-goes-here").css("color", "white");
         console.log(response.value);
       }
   
@@ -135,12 +145,19 @@ $.ajax({
     var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
     $('#wicon').attr('src', iconurl);
     $("#icon").show();
-    
     $(".today").addClass("card");
     cardBody.append(cityName, tempToday, humidityToday, windyToday);
     $(".today").append(cardBody);
 
 
 })
+localStorage.setItem("cityInput", JSON.stringify(cityInput));
+
+ var savedCities = JSON.parse(localStorage.getItem("cityInput"));
+Arr_Cities.push(savedCities);
+
+for (i = 0; i < Arr_Cities.length; i++) { 
+ $("ul").append("<li>").addClass("cityNames").text(Arr_Cities[i]);
+};
 
 });
