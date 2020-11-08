@@ -5,6 +5,6 @@ Get a peek at the weather forecast for your prefered cities.
 ![weather-dashboard](weather-dashboard-screencap.png)
 
 ## Check It Out
-[Check the Weather](https://angelia-collins.github.io/PasswordGenerator/)
+[Check the Weather](https://angelia-collins.github.io/weather-dashboard/)
 
 ©2020
